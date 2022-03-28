@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="doWhileEx5_3" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1238.4,1251.2" sap2010:WorkflowViewState.IdRef="doWhileEx5_3_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="doWhileEx5_3" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1238.4,1858.4" sap2010:WorkflowViewState.IdRef="doWhileEx5_3_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="23">
       <x:String>System.Activities</x:String>
@@ -46,12 +46,17 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="doWhileEx5_3" sap:VirtualizedContainerService.HintSize="1248.8,1186.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="doWhileEx5_3" sap:VirtualizedContainerService.HintSize="1248.8,1793.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="guessNum" />
       <Variable x:TypeArguments="x:Int32" Name="randNum">
         <Variable.Default>
           <Literal x:TypeArguments="x:Int32" Value="25" />
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="x:Int32" Name="noOfTry">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:Int32" />
         </Variable.Default>
       </Variable>
     </Sequence.Variables>
@@ -60,31 +65,60 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="1207.2,1093.6" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+    <Assign sap:VirtualizedContainerService.HintSize="1207.2,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[randNum]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">[new Random().Next(1,100)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1207.2,62.4" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[&quot;Random no : &quot;+randNum.ToString]" />
+    <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="1207.2,1498.4" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1172,926.4" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1172,1331.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="1130.4,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Guess a number" Title="Guess Game">
+          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="1130.4,241.6" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="Guess a number ( You have 3 trials only!!)" Title="Guess Game">
             <ui:InputDialog.Result>
               <OutArgument x:TypeArguments="x:Int32">[guessNum]</OutArgument>
             </ui:InputDialog.Result>
           </ui:InputDialog>
-          <If Condition="[guessNum=randNum]" sap:VirtualizedContainerService.HintSize="1130.4,552" sap2010:WorkflowViewState.IdRef="If_1">
+          <If Condition="[guessNum=randNum]" sap:VirtualizedContainerService.HintSize="1130.4,956.8" sap2010:WorkflowViewState.IdRef="If_1">
             <If.Then>
               <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;You guessed Correctly&quot;]" />
             </If.Then>
             <If.Else>
-              <Sequence sap:VirtualizedContainerService.HintSize="752.8,402.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence sap:VirtualizedContainerService.HintSize="752.8,807.2" sap2010:WorkflowViewState.IdRef="Sequence_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="711.2,60" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Wrong guess&quot;]" />
+                <Assign sap:VirtualizedContainerService.HintSize="711.2,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[noOfTry]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[noOfTry+1]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <If Condition="[noOfTry=3]" sap:VirtualizedContainerService.HintSize="711.2,364.8" sap2010:WorkflowViewState.IdRef="If_3">
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="375.2,215.2" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="MessageBox_5" Text="[&quot;Your 3 trials are over! Try again later&quot;]" />
+                      <ui:Break sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Break_1" />
+                    </Sequence>
+                  </If.Then>
+                </If>
                 <If Condition="[guessNum&gt;randNum]" sap:VirtualizedContainerService.HintSize="711.2,209.6" sap2010:WorkflowViewState.IdRef="If_2">
                   <If.Then>
                     <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[&quot;Try Smaller number&quot;]" />
